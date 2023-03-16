@@ -1,7 +1,7 @@
 .PHONY: build build-endtoend test test-ci test-examples test-endtoend regen start psql mysqlsh proto
 
 build:
-	go build ./...
+	CGO_ENABLED=1 CXX=clang++ go build ./...
 
 install:
 	go install ./...
@@ -24,10 +24,10 @@ regen: sqlc-dev sqlc-gen-json
 	go run ./scripts/regenerate/
 
 sqlc-dev:
-	go build -o ~/bin/sqlc-dev ./cmd/sqlc/
+	CGO_ENABLED=1 CXX=clang++ go build -o ~/bin/sqlc-dev ./cmd/sqlc/
 
 sqlc-pg-gen:
-	go build -o ~/bin/sqlc-pg-gen ./internal/tools/sqlc-pg-gen
+	CGO_ENABLED=1 CXX=clang++ go build -o ~/bin/sqlc-pg-gen ./internal/tools/sqlc-pg-gen
 
 sqlc-gen-json:
 	go build -o ~/bin/sqlc-gen-json ./cmd/sqlc-gen-json
